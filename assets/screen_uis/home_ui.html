@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Vectorly - Home</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+    <style>
+        :root {
+          --primary-accent: #c6f54c;
+          --secondary-accent: #00FFC3;
+          --background-dark-start: #111111;
+          --background-dark-end: #000000;
+          --glass-bg-dark: rgba(30, 30, 30, 0.45);
+          --glass-border-dark: rgba(255, 255, 255, 0.1);
+        }
+        .material-symbols-outlined {
+          font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined.fill-1 {
+          font-variation-settings: 'FILL' 1;
+        }
+        .glassmorphic {
+          background-color: var(--glass-bg-dark);
+          border: 1px solid var(--glass-border-dark);
+          backdrop-filter: blur(32px);
+          -webkit-backdrop-filter: blur(32px);
+        }
+        .glow-border-primary {
+          box-shadow: 0 0 14px 2px var(--primary-accent), inset 0 0 10px 1px var(--primary-accent);
+        }
+        .nav-glow {
+          box-shadow: 0 0 18px 4px rgba(0, 255, 195, 0.35);
+        }
+        .text-glow {
+          text-shadow: 0 0 8px var(--secondary-accent);
+        }
+        .particle-bg {
+          background: linear-gradient(to bottom, var(--background-dark-start), var(--background-dark-end));
+          position: relative;
+          overflow: hidden;
+        }
+        .particle-bg::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background-image: radial-gradient(circle at 15% 50%, rgba(0, 255, 195, 0.06), transparent 30%), radial-gradient(circle at 85% 30%, rgba(198, 245, 76, 0.05), transparent 30%), url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40"%3E%3Cg fill-rule="evenodd"%3E%3Cg fill="%23ffffff" fill-opacity="0.02"%3E%3Cpath d="M0 38.59l2.83-2.83 1.41 1.41L1.41 40H0v-1.41zM0 1.4l2.83 2.83 1.41-1.41L1.41 0H0v1.41zM38.59 40l-2.83-2.83 1.41-1.41L40 38.59V40h-1.41zM40 1.41l-2.83 2.83-1.41-1.41L38.59 0H40v1.41zM20 18.6l2.83-2.83 1.41 1.41L21.41 20l2.83 2.83-1.41 1.41L20 21.41l-2.83 2.83-1.41-1.41L18.59 20l-2.83-2.83 1.41-1.41L20 18.59z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+          display: none;
+        }
+        .hide-scrollbar {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+        }
+        .masonry-grid {
+          column-count: 2;
+          column-gap: 1rem;
+        }
+        .masonry-item {
+          break-inside: avoid;
+          margin-bottom: 1rem;
+        }
+    </style>
+    <script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              colors: {
+                "primary": "#c6f54c",
+                "secondary": "#00FFC3",
+                "background-dark": "#0A0A0A",
+                "text-dark": "#F5F5F7",
+                "text-muted-dark": "#8A8A8E"
+              },
+              fontFamily: {
+                "sans": ["Inter", "sans-serif"]
+              },
+              borderRadius: {
+                "DEFAULT": "1rem",
+                "lg": "1.25rem",
+                "xl": "1.75rem",
+                "full": "9999px"
+              },
+            },
+          },
+        }
+    </script>
+    <style>
+        body {
+          min-height: max(884px, 100dvh);
+        }
+    </style>
+    <style>
+        body {
+          min-height: max(884px, 100dvh);
+        }
+    </style>
+</head>
+<body class="font-sans bg-background-dark particle-bg text-text-dark">
+<div class="relative flex min-h-screen w-full flex-col group/design-root overflow-x-hidden">
+    <div class="fixed top-0 left-0 right-0 z-20 glassmorphic px-4 pt-12 pb-3">
+        <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <svg class="h-6 w-6 text-primary" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke-linecap="round" stroke-linejoin="round"></path>
+                </svg>
+                <span class="text-xl font-bold tracking-tight">Vectorify</span>
+            </div>
+            <div class="flex items-center gap-1.5 px-3 py-1.5 rounded-full glassmorphic" style="box-shadow: inset 0 0 8px 1px rgba(198, 245, 76, 0.2);">
+                <span class="material-symbols-outlined text-base text-primary">toll</span>
+                <span class="text-xs font-semibold">Credits: 35</span>
+            </div>
+        </div>
+    </div>
+    <main class="flex-1 pt-28 pb-32 px-4">
+        <div class="space-y-6">
+            <div class="overflow-x-auto hide-scrollbar -mx-4 px-4">
+                <div class="flex space-x-2 pb-2">
+                    <button class="shrink-0 px-4 py-2 rounded-full text-sm font-medium bg-primary text-background-dark">Engraving</button>
+                    <button class="shrink-0 px-4 py-2 rounded-full text-sm font-medium glassmorphic text-text-muted-dark">Outcut</button>
+                    <button class="shrink-0 px-4 py-2 rounded-full text-sm font-medium glassmorphic text-text-muted-dark">Linocut</button>
+                    <button class="shrink-0 px-4 py-2 rounded-full text-sm font-medium glassmorphic text-text-muted-dark">Sticker</button>
+                    <button class="shrink-0 px-4 py-2 rounded-full text-sm font-medium glassmorphic text-text-muted-dark">Chibi</button>
+                    <button class="shrink-0 px-4 py-2 rounded-full text-sm font-medium glassmorphic text-text-muted-dark">Icon</button>
+                </div>
+            </div>
+            <div class="relative p-6 rounded-xl glassmorphic overflow-hidden border border-[var(--primary-accent)]" style="box-shadow: 0 0 18px 4px rgba(198, 245, 76, 0.35);">
+                <div class="absolute inset-0 bg-gradient-to-br from-primary/10 to-secondary/10"></div>
+                <div class="relative z-10 flex flex-col items-start gap-4">
+                    <h2 class="text-xl font-bold">Create your vision</h2>
+                    <p class="text-sm text-text-muted-dark">Turn your ideas into stunning vector art with the power of AI.</p>
+                    <button class="flex items-center justify-center gap-2 px-5 py-3 rounded-full bg-primary text-background-dark font-bold text-sm">
+                        <span class="material-symbols-outlined">auto_awesome</span>
+                        Start Creating
+                    </button>
+                </div>
+            </div>
+            <div class="flex items-center justify-between">
+                <h2 class="text-2xl font-bold">Last Creations</h2>
+                <a class="text-primary text-sm font-medium" href="#">View All</a>
+            </div>
+            <div class="masonry-grid">
+                <div class="masonry-item">
+                    <div class="glassmorphic rounded-lg overflow-hidden">
+                        <img alt="Vector artwork of a stylized wolf" class="w-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAoD539qDNJmKFyrnla2Upoxrej4TRrkOwzFq5Amz0rvIfXn7fbN_VyUsNKKe370f9bMiC1MmaWs9yw5CDd9tFfCOy20-nfhA32we5VVg9cX2uHfQQgbFMnneMl3q9Y7-OIJwNyfbeWPhCcq7XcOsAuzGLYHp3J5AhEHioLM5Q9BhjtP25a6Z12Ho23IcRj0pPmvypUbDe_sEPPVGpBXfjp_QUpaqvXnXcPGnNtJw8Zf-sQM6tGf6NuKuBiuC_VLHnXKQdpKFF8ck8D"/>
+                        <div class="p-3 flex items-center justify-between">
+                            <p class="text-xs text-text-muted-dark">@artisan_wolf</p>
+                            <div class="flex items-center gap-1.5">
+                                <span class="material-symbols-outlined text-base text-pink-400 fill-1">favorite</span>
+                                <span class="text-xs font-medium">1.2k</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="masonry-item">
+                    <div class="glassmorphic rounded-lg overflow-hidden">
+                        <img alt="Vector artwork of an abstract cityscape" class="w-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAKGaz6oJ14nI9_iqosAwMC6W17Tzl6TU7_0qsBj0wIu7d3LLTVGaKK41g1e55JOuuVZm4V-o5W8Jg-7i-skxa6wZuqZN_WYesm-XPkQHdhghRupNqM64jJfeD8beE_1bk7wHk3UHZII2LmsPO7Oshn2pDzXw7ygRPQOrDS-XWiCBaN8cxpuh9y3hd3XW8KPhQANtdWgw8YnK8n0_6TCAw1eYq1sxMdMmAmZKf9yBJOk9CVSwj_pzfPR2Zt3YN4-oUZBl60xyLcaR-M"/>
+                        <div class="p-3 flex items-center justify-between">
+                            <p class="text-xs text-text-muted-dark">@city_dreamer</p>
+                            <div class="flex items-center gap-1.5">
+                                <span class="material-symbols-outlined text-base text-text-muted-dark">favorite</span>
+                                <span class="text-xs font-medium">876</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="masonry-item">
+                    <div class="glassmorphic rounded-lg overflow-hidden">
+                        <img alt="Vector portrait of a woman" class="w-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD1m9UF996OjzOyHN0YXLSWKxLfVQPgGIU5s8OOgLQmasyr9cBVJ2A5oqJBkuB7wfZOfYt-KwsmK9yyZsLAjGrS1MGgIMien2KRWeSuz604H0zAM5byFlp15OeMTDW6nTCrWgfA-8ft7x6nAjzIcZ1UOQihPiZEVm-BbbAK_cr6TQoL3jvV2LobqqG_qSSFu6mzyJy3FVC41TCUZBGMrKqxemJtHYqPDb1N1LR0GNnlQg7ertemFcc8MNHIaoUWnHJWoAwKdt6AZcXk"/>
+                        <div class="p-3 flex items-center justify-between">
+                            <p class="text-xs text-text-muted-dark">@vector_vixen</p>
+                            <div class="flex items-center gap-1.5">
+                                <span class="material-symbols-outlined text-base text-pink-400 fill-1">favorite</span>
+                                <span class="text-xs font-medium">2.5k</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="masonry-item">
+                    <div class="glassmorphic rounded-lg overflow-hidden">
+                        <img alt="Vector artwork of a neon geometric pattern" class="w-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAieh-G0ong4SEtoY8bFbJdT26UQcMGBwbYIu94XXFmGPn5leGfVmlaFErPH8xdyBLr4sEekhGvcvHPSI8A65LRxKyg-rgJpuOATdYjMpzCwQ-1uuF6y-noVnVUciGzhVYtaB13c95x8oUZRPrPi7bh32N8EOiErc4VQEtP-GTUkLneqkUQGOr-SRaDhnMYTob4KxjXVmSoZ7XaDBPWfVULQekRAIEPEoq7v-9Sw_H46P5QOlKIBAv1zaFq4-HSUeT8VcSWNEBFn7Fk"/>
+                        <div class="p-3 flex items-center justify-between">
+                            <p class="text-xs text-text-muted-dark">@geometrix</p>
+                            <div class="flex items-center gap-1.5">
+                                <span class="material-symbols-outlined text-base text-text-muted-dark">favorite</span>
+                                <span class="text-xs font-medium">942</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="masonry-item">
+                    <div class="glassmorphic rounded-lg overflow-hidden">
+                        <img alt="Vector artwork of a fantasy creature" class="w-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDH-qmWoRPrBx-MlZbYZeL8fS7lteumEPqp_1EW0uy_g2MF64wR9FSDBnpGxdmhATMslL-JYEBNC3SAvaPLm0VNYX3nG4MpT7auFilP3xRXibXxHl1PFBbK_d1hAU2seHQF9OzOwLrU3y-eJWTuq-6FbESVKcMaWrXWiQ58c9dy4qu9vwJr576H8JkYHHWt29jC8i3wFmyDgkdzjtmBsqRhOMy7uo8QWhTOpX0KIamAkBlnBmWvvwTSXWTmQLaXznEdhCwzzVqLK9J7"/>
+                        <div class="p-3 flex items-center justify-between">
+                            <p class="text-xs text-text-muted-dark">@mythic_lines</p>
+                            <div class="flex items-center gap-1.5">
+                                <span class="material-symbols-outlined text-base text-text-muted-dark">favorite</span>
+                                <span class="text-xs font-medium">781</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="masonry-item">
+                    <div class="glassmorphic rounded-lg overflow-hidden">
+                        <img alt="Vector artwork of a cat in a spacesuit" class="w-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCSA8u085UEX9FQ5CMBoqJoHJT7oQ6QVTo5kmvIzZVfgJ9X4bb6BsOYYuahhoWVy_vus9C_OsqPj7kiUAbDVeR7MuQo2ylL8JaHrk_4KYVjxYt4NkotehDwPp73U0_iBAPUqb-wUf0uDhW7X3Y0v9q0xC-B_b2KuYCSorBMPhHuLbHdWE_hm7T4ln34vroqH1NXA28Bgby5jFe4yTDdtH-lt8c14J3dzhFiP7zL9MwCDmcTWSM8vIRhAhXwMBN1ACc0K7jgOJfHZSJP"/>
+                        <div class="p-3 flex items-center justify-between">
+                            <p class="text-xs text-text-muted-dark">@astro_cat</p>
+                            <div class="flex items-center gap-1.5">
+                                <span class="material-symbols-outlined text-base text-pink-400 fill-1">favorite</span>
+                                <span class="text-xs font-medium">3.1k</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <div class="fixed bottom-0 left-0 right-0 z-20 glassmorphic">
+        <div class="flex items-center justify-around px-2 pt-3 pb-8">
+            <a class="flex flex-1 flex-col items-center justify-center gap-1" href="#">
+                <span class="material-symbols-outlined fill-1 text-2xl text-primary">home</span>
+                <p class="text-xs font-medium text-primary">Home</p>
+            </a>
+            <a class="flex flex-1 flex-col items-center justify-center gap-1" href="#">
+                <div class="flex h-14 w-14 items-center justify-center rounded-full bg-primary -translate-y-4" style="box-shadow: 0 0 18px 4px rgba(198, 245, 76, 0.45);">
+                    <span class="material-symbols-outlined text-3xl text-background-dark">draw</span>
+                </div>
+            </a>
+            <a class="flex flex-1 flex-col items-center justify-center gap-1 text-text-muted-dark" href="#">
+                <span class="material-symbols-outlined text-2xl">person</span>
+                <p class="text-xs font-medium">Profile</p>
+            </a>
+        </div>
+    </div>
+</div>
+
+</body></html>

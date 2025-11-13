@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Vectorly - Create Vector</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+    <style>
+        :root {
+          --primary-accent: #c6f54c;
+          --secondary-accent: #00FFC3;
+          --background-dark-start: #111111;
+          --background-dark-end: #000000;
+          --glass-bg-dark: rgba(30, 30, 30, 0.45);
+          --glass-border-dark: rgba(255, 255, 255, 0.1);
+        }
+        .material-symbols-outlined {
+          font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined.fill-1 {
+          font-variation-settings: 'FILL' 1;
+        }
+        .glassmorphic {
+          background-color: var(--glass-bg-dark);
+          border: 1px solid var(--glass-border-dark);
+          backdrop-filter: blur(32px);
+          -webkit-backdrop-filter: blur(32px);
+        }
+        .cta-glow {
+          box-shadow: 0 0 24px 4px var(--primary-accent), inset 0 0 14px 2px var(--primary-accent);
+        }
+        .text-glow {
+          text-shadow: 0 0 8px var(--primary-accent);
+        }
+        .particle-bg {
+          background: linear-gradient(to bottom, var(--background-dark-start), var(--background-dark-end));
+          position: relative;
+          overflow: hidden;
+        }
+        .particle-bg::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background-image:
+            radial-gradient(circle at 15% 50%, rgba(0, 255, 195, 0.06), transparent 30%),
+            radial-gradient(circle at 85% 30%, rgba(198, 245, 76, 0.05), transparent 30%);
+        }
+        .no-scrollbar::-webkit-scrollbar {
+          display: none;
+        }
+        .no-scrollbar {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+        }
+        .style-card-glow {
+          box-shadow: 0 0 12px 2px var(--primary-accent), inset 0 0 8px 1px var(--primary-accent);
+        }
+    </style>
+    <script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              colors: {
+                "primary": "#c6f54c",
+                "secondary": "#00FFC3",
+                "background-dark": "#0A0A0A",
+                "text-dark": "#F5F5F7",
+                "text-muted-dark": "#8A8A8E"
+              },
+              fontFamily: {
+                "sans": ["Inter", "sans-serif"]
+              },
+              borderRadius: {
+                "DEFAULT": "1rem",
+                "lg": "1.25rem",
+                "xl": "1.75rem",
+                "full": "9999px"
+              },
+            },
+          },
+        }
+    </script>
+    <style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+    <style>
+        body {
+          min-height: max(884px, 100dvh);
+        }
+    </style>
+</head>
+<body class="font-sans bg-background-dark particle-bg text-text-dark">
+<div class="relative flex min-h-screen w-full flex-col group/design-root overflow-x-hidden">
+    <header class="fixed top-0 left-0 right-0 z-20 px-4 pt-12 pb-4 glassmorphic">
+        <div class="flex items-center justify-between">
+            <h1 class="text-3xl font-extrabold tracking-tighter" style="color: var(--primary-accent);">Create Vector</h1>
+            <div class="glassmorphic rounded-full px-4 py-2 text-sm font-semibold border-2 border-[var(--glass-border-dark)] shadow-inner">
+                Credits: 1,420
+            </div>
+        </div>
+    </header>
+    <main class="flex-1 pt-32 pb-40 px-4">
+        <div class="flex flex-col gap-8">
+            <div class="flex flex-col gap-2">
+                <label class="px-1 text-sm font-medium text-text-muted-dark">Upload Image (Optional)</label>
+                <div class="flex flex-col items-center justify-center p-6 rounded-xl glassmorphic border-2 border-dashed border-[rgba(255,255,255,0.2)]">
+<span class="material-symbols-outlined text-4xl text-text-muted-dark">
+                        add_photo_alternate
+                    </span>
+                    <p class="mt-2 text-sm font-semibold text-text-dark">Tap to upload or select an image</p>
+                    <p class="text-xs text-text-muted-dark">PNG, JPG, SVG up to 10MB</p>
+                </div>
+            </div>
+            <div class="flex flex-col gap-3">
+                <label class="px-1 text-sm font-medium text-text-muted-dark">Choose a Style</label>
+                <div class="flex gap-4 overflow-x-auto no-scrollbar -mx-4 px-4">
+                    <button class="flex-shrink-0 w-32 h-44 rounded-xl glassmorphic text-sm font-medium border-2 flex flex-col items-center justify-between pt-2 pb-4 style-card-glow" style="border-color: var(--primary-accent); color: var(--primary-accent);">
+                        <img alt="Engraving style preview" class="w-full h-2/3 object-cover rounded-t-xl" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAhWoFS6DyF3TWU7o7crvBHLlfEhOzIshduWUDhXPr1Dd5RcoTjTHcM1lbvg1KOB2LLvwwQbYbbMl3RktdIkgyO5nChS-ZRYNAAJp0L33vORHdC-KjwvqCvY0zPmxQ5w5jUaI0aqn8Tp9nl5Q8EzOYlUYG2OrmZP6TLP4343EdrtvfiQdHzh3XYr4hOt7BNv5iDQNXGCwY29iLRBMhvhmxgJcOTNQvYqsf5Huyra1rmG3bh3G9_MwFeZC6Yvk1jpr6sdebvOfkSq-kc"/>
+                        <span class="mt-2">Engraving</span>
+                    </button>
+                    <button class="flex-shrink-0 w-32 h-44 rounded-xl glassmorphic text-sm font-medium border-2 border-[var(--glass-border-dark)] flex flex-col items-center justify-between pt-2 pb-4 text-text-muted-dark">
+                        <img alt="Outcut style preview" class="w-full h-2/3 object-cover rounded-t-xl" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD4pxwxspb4y2YHcFLtbH0cueUr3R4yMZWB8v3FZa1TMDblM3vtwerdSFxJzQN9Q8Zmekk28jFO7I4S5PoTCaAyvLv9NpjWl2j8IRnRNpxz7WAunFR4BHpctmf2pcFZztj53amkPo-j2VdeufwfoBJO9WzWM3TP4A4myEv5pqIEpBTzKTrdCA0VqHueoLZ80qG5gcIpIMCBsn4PTSTF55hWpgNhEuC6-aeKWkvnu3XHpMQFUyMZeogVH4p3d4wJmdETdzhD2Z_Ke4ou"/>
+                        <span class="mt-2">Outcut</span>
+                    </button>
+                    <button class="flex-shrink-0 w-32 h-44 rounded-xl glassmorphic text-sm font-medium border-2 border-[var(--glass-border-dark)] flex flex-col items-center justify-between pt-2 pb-4 text-text-muted-dark">
+                        <img alt="Linocut style preview" class="w-full h-2/3 object-cover rounded-t-xl" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBrTPe4t6cbmnPG7Z3tvEr_MLsBuU3hbcEYdort4OLd7oy6Kad2TrR7Du2tXEc5s90-sUyNWbSsbS2ek8dH0ZYJtB59Thy2RkKDgG7E0gLZBDYXzDZSmwSMXZYrkjv6HeK2Ru4vM9FY9z8bTXMeQzNfJVi25ejFPjtcDfPcWzBQz1zJVDHRF5ylrZoZt12GPEyAt4ICtLlrHzd-oxHqI0qpqblzslHJ8WSO4rn3-Ze1eUf_IbTRz1uJer7je52ZYb33NsQIvGvqm5Io"/>
+                        <span class="mt-2">Linocut</span>
+                    </button>
+                    <button class="flex-shrink-0 w-32 h-44 rounded-xl glassmorphic text-sm font-medium border-2 border-[var(--glass-border-dark)] flex flex-col items-center justify-between pt-2 pb-4 text-text-muted-dark">
+                        <img alt="Drawing style preview" class="w-full h-2/3 object-cover rounded-t-xl" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDh9KUwvZggflr7IO4RT1emFfwIqHFcX_Ejp-nP3mFViCa1ak_6ZN4OHqtmOgICc0EaKQOxuUgk_5J3-BH5AKzKdlHeYdgfG4XOpHd1e2zWqKvqYRxupots-74kzDHYwPbKW3O_UEKXE44GaYoj6RZNtfrqrmO2CenDVtVJqFW_BRiR2Co1N9QkgZ5IOg_5Z8iNZNhMsGxjvbpeHJv1JfHAWyEj7r8QZ0EVErou1P4xNPZsztgilMBq__DXxnU9ZjzQan5DFYEGetYB"/>
+                        <span class="mt-2">Drawing</span>
+                    </button>
+                    <button class="flex-shrink-0 w-32 h-44 rounded-xl glassmorphic text-sm font-medium border-2 border-[var(--glass-border-dark)] flex flex-col items-center justify-between pt-2 pb-4 text-text-muted-dark">
+                        <img alt="Cartoon style preview" class="w-full h-2/3 object-cover rounded-t-xl" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBsgwBGHHhqKITT5ebq6jdgo_dwWGjrcydr4UVEDU1f11BEcuh3z0kSVmgbREh6CYlqi1c-7e7jinAJJQ34S7aeD7MbwIH5hMlDn89rPBF9GrX5rrR_p5Qd05FXsj4inTvNFrOLs1EFVNWQYLjKAohBHt9Irxg4JIeUY9oSdamjDzbidrxeSAPCvjmFuzIh305oAt9ava5j4EVlJ6cJg4dzGXkqFEk-3ljuI9kNRnVs_rw-M-mM72SEEw9KofHHst8F6tKMvqnPH9AI"/>
+                        <span class="mt-2">Cartoon</span>
+                    </button>
+                    <button class="flex-shrink-0 w-32 h-44 rounded-xl glassmorphic text-sm font-medium border-2 border-[var(--glass-border-dark)] flex flex-col items-center justify-between pt-2 pb-4 text-text-muted-dark">
+                        <img alt="Sticker style preview" class="w-full h-2/3 object-cover rounded-t-xl" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDPcvaPmdQT1mZOLqrKMewFTJ95fzxhnUmmea4zcoeR2W91mE0k4W8Mq_ZQb9BZj-wx56N956Yg9TlE10pKyg9WaNbThNYuEIDyd78UYTZ5Vz8GXYPSn-5fEy3HmlgmNbHbS0zM3mwkpbC8cjPqm_iau0Bx7jUrczxbp-fBzqZBAGc1ichnq2P4rlaJCx72et6ATrO0GrqxlGyZ1_iVYdg0iaIzLMYeu2Thjli7Wnq2yvP9eH5Ai0Rwc5DovxMtn_2RG5u_M-YnUPbB"/>
+                        <span class="mt-2">Sticker</span>
+                    </button>
+                </div>
+            </div>
+            <div class="flex flex-col gap-2">
+                <label class="px-1 text-sm font-medium text-text-muted-dark">Describe your vision</label>
+                <textarea class="w-full min-h-[140px] p-4 rounded-xl glassmorphic text-text-dark placeholder:text-text-muted-dark border-0 ring-1 ring-inset ring-[var(--glass-border-dark)] focus:ring-2 focus:ring-inset focus:ring-primary" placeholder="e.g., A majestic lion wearing a crown, detailed vector illustration, vibrant colors..."></textarea>
+            </div>
+        </div>
+    </main>
+    <div class="fixed bottom-[100px] left-0 right-0 z-20 px-4">
+        <button class="w-full flex items-center justify-center gap-3 rounded-full py-4 text-lg font-bold text-black glassmorphic cta-glow border border-[var(--primary-accent)]" style="background-color: var(--primary-accent);">
+            <span class="material-symbols-outlined text-2xl font-semibold">add</span>
+            <span>Generate Vector</span>
+        </button>
+    </div>
+    <div class="fixed bottom-0 left-0 right-0 z-20 glassmorphic">
+        <div class="flex items-center justify-around px-2 pt-3 pb-8">
+            <a class="flex flex-1 flex-col items-center justify-center gap-1 text-text-muted-dark" href="#">
+                <span class="material-symbols-outlined text-2xl">home</span>
+                <p class="text-xs font-medium">Home</p>
+            </a>
+            <a class="flex flex-1 flex-col items-center justify-center gap-1" href="#" style="color: var(--primary-accent);">
+                <span class="material-symbols-outlined fill-1 text-2xl">draw</span>
+                <p class="text-xs font-medium">Create</p>
+            </a>
+            <a class="flex flex-1 flex-col items-center justify-center gap-1 text-text-muted-dark" href="#">
+                <span class="material-symbols-outlined text-2xl">person</span>
+                <p class="text-xs font-medium">Profile</p>
+            </a>
+        </div>
+    </div>
+</div>
+</body></html>
