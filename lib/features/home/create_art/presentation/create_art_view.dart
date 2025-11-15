@@ -1,13 +1,11 @@
-import 'package:flutter/material.dart';
-import 'package:monovect/common/theme/d_decorations.dart';
-import 'package:monovect/common/theme/d_text_styles.dart';
-import 'package:monovect/common/widget/app_button.dart';
 import 'dart:io';
-
-import '../../../../common/theme/d_colors.dart';
-import '../../../../common/theme/d_constants.dart';
-import '../../../../common/theme/d_dimens.dart';
-import '../../../../common/widget/credit_chip.dart';
+import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:monovect/common/theme/d_colors.dart';
+import 'package:monovect/common/theme/d_decorations.dart';
+import 'package:monovect/common/theme/d_dimens.dart';
+import 'package:monovect/common/theme/d_text_styles.dart';
+import 'package:monovect/common/widget/credit_chip.dart';
 
 class CreateVectorView extends StatefulWidget {
   const CreateVectorView({super.key});
@@ -20,8 +18,7 @@ class _CreateVectorViewState extends State<CreateVectorView> {
   final TextEditingController _descriptionController = TextEditingController();
   String _selectedStyle = 'Engraving';
   File? _selectedImage;
-
-  // final ImagePicker _picker = ImagePicker();
+  final ImagePicker _picker = ImagePicker();
 
   final List<Map<String, String>> _styles = [
     {
@@ -62,10 +59,34 @@ class _CreateVectorViewState extends State<CreateVectorView> {
     super.dispose();
   }
 
-  Future<void> _pickImage() async {}
+  Future<void> _pickImage() async {
+    try {
+      final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+      if (image != null) {
+        setState(() {
+          _selectedImage = File(image.path);
+        });
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Error picking image: $e')),
+        );
+      }
+    }
+  }
 
   void _generateVector() {
-    // TODO: Implement vector generation logic
+    if (_descriptionController.text.isEmpty && _selectedImage == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Please provide a description or upload an image'),
+          backgroundColor: Colors.red,
+        ),
+      );
+      return;
+    }
+
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text('Generating vector with style: $_selectedStyle'),
@@ -78,14 +99,36 @@ class _CreateVectorViewState extends State<CreateVectorView> {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBody: true,
+      bottomNavigationBar: BottomAppBar(
+        color: DColors.glassBgDark,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            IconButton(
+              icon: Icon(Icons.home_outlined, color: DColors.textMuted, size: 28),
+              onPressed: () => Navigator.pop(context),
+            ),
+            IconButton(
+              icon: const Icon(Icons.draw, color: DColors.primary, size: 28),
+              onPressed: () {},
+            ),
+            IconButton(
+              icon: Icon(Icons.person_outline, color: DColors.textMuted, size: 28),
+              onPressed: () {},
+            ),
+          ],
+        ),
+      ),
       body: Stack(
         children: [
           // Background gradient
           Container(decoration: DDecorations.gradientBackground()),
+
           // Particle background
           Positioned.fill(
-            child: CustomPaint(painter: ParticleBackgroundPainter()),
+            child: CustomPaint(painter: _ParticleBackgroundPainter()),
           ),
+
           // Main content
           CustomScrollView(
             slivers: [
@@ -93,11 +136,11 @@ class _CreateVectorViewState extends State<CreateVectorView> {
               SliverAppBar(
                 floating: true,
                 snap: true,
-                leading: SizedBox(),
-                elevation: DConstants.appBarElevation,
+                leading: const SizedBox(),
+                elevation: 0,
                 backgroundColor: Colors.transparent,
                 expandedHeight: 0,
-                toolbarHeight: DConstants.appBarHeight,
+                toolbarHeight: 80,
                 flexibleSpace: Container(
                   decoration: BoxDecoration(
                     color: DColors.glassBgDark,
@@ -106,8 +149,8 @@ class _CreateVectorViewState extends State<CreateVectorView> {
                     ),
                     boxShadow: [
                       BoxShadow(
-                        color: DColors.blackShadow,
-                        blurRadius: DConstants.backdropBlur,
+                        color: Colors.black.withOpacity(0.2),
+                        blurRadius: 32,
                       ),
                     ],
                   ),
@@ -118,7 +161,7 @@ class _CreateVectorViewState extends State<CreateVectorView> {
                         vertical: DDimens.sm,
                       ),
                       child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Text(
                             'Create Vector',
@@ -128,7 +171,7 @@ class _CreateVectorViewState extends State<CreateVectorView> {
                               letterSpacing: -1.0,
                             ),
                           ),
-                          Spacer(),
+                          const Spacer(),
                           const CreditChip(),
                         ],
                       ),
@@ -136,30 +179,37 @@ class _CreateVectorViewState extends State<CreateVectorView> {
                   ),
                 ),
               ),
+
               // Content
               SliverPadding(
-                padding: EdgeInsets.only(top: DDimens.xl),
+                padding: EdgeInsets.only(
+                  top: DDimens.xl,
+                  bottom: 120,
+                ),
                 sliver: SliverList(
                   delegate: SliverChildListDelegate([
                     // Image Upload Section
                     _buildImageUploadSection(),
-                    SizedBox(height: DDimens.lg),
+                    SizedBox(height: DDimens.xl),
 
                     // Style Selection Section
                     _buildStyleSection(),
-                    SizedBox(height: DDimens.lg),
+                    SizedBox(height: DDimens.xl),
 
                     // Description Section
                     _buildDescriptionSection(),
-                    SizedBox(height: DDimens.md),
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: DDimens.md),
-                      child: AppButton(title: "Generate Vector"),
-                    ),
                   ]),
                 ),
               ),
             ],
+          ),
+
+          // Fixed Generate Button
+          Positioned(
+            bottom: 100,
+            left: DDimens.md,
+            right: DDimens.md,
+            child: _buildGenerateButton(),
           ),
         ],
       ),
@@ -177,32 +227,27 @@ class _CreateVectorViewState extends State<CreateVectorView> {
             style: DTextStyles.labelSmall.copyWith(color: DColors.textMuted),
           ),
         ),
-        SizedBox(height: DDimens.sm, width: double.infinity),
+        SizedBox(height: DDimens.sm),
         InkWell(
           onTap: _pickImage,
-          borderRadius: BorderRadius.circular(DDimens.radiusLg),
+          borderRadius: BorderRadius.circular(DDimens.radiusXl),
           child: Container(
             margin: EdgeInsets.symmetric(horizontal: DDimens.md),
             width: double.infinity,
-            padding: EdgeInsets.all(DDimens.lg),
-            decoration:
-                DDecorations.glassmorphic(
-                  borderRadius: BorderRadius.circular(DDimens.radiusLg),
-                  border: Border.all(
-                    color: Colors.white.withOpacity(0.2),
-                    width: 2,
-                    strokeAlign: BorderSide.strokeAlignInside,
-                  ),
-                ).copyWith(
-                  border: Border.all(
-                    color: Colors.white.withOpacity(0.2),
-                    width: 2,
-                  ),
-                ),
+            padding: EdgeInsets.all(DDimens.xl),
+            decoration: DDecorations.glassmorphic(
+              borderRadius: BorderRadius.circular(DDimens.radiusXl),
+            ).copyWith(
+              border: Border.all(
+                color: Colors.white.withOpacity(0.2),
+                width: 2,
+                strokeAlign: BorderSide.strokeAlignInside,
+              ),
+            ),
             child: _selectedImage == null
                 ? Column(
                     children: [
-                      Icon(
+                      const Icon(
                         Icons.add_photo_alternate_outlined,
                         size: 48,
                         color: DColors.textMuted,
@@ -218,18 +263,39 @@ class _CreateVectorViewState extends State<CreateVectorView> {
                       SizedBox(height: DDimens.xs),
                       Text(
                         'PNG, JPG, SVG up to 10MB',
-                        style: DTextStyles.caption,
+                        style: DTextStyles.caption.copyWith(
+                          color: DColors.textMuted,
+                        ),
                       ),
                     ],
                   )
-                : ClipRRect(
-                    borderRadius: BorderRadius.circular(DDimens.radiusMd),
-                    child: Image.file(
-                      _selectedImage!,
-                      fit: BoxFit.cover,
-                      height: 200,
-                      width: double.infinity,
-                    ),
+                : Stack(
+                    children: [
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(DDimens.radiusMd),
+                        child: Image.file(
+                          _selectedImage!,
+                          fit: BoxFit.cover,
+                          height: 200,
+                          width: double.infinity,
+                        ),
+                      ),
+                      Positioned(
+                        top: 8,
+                        right: 8,
+                        child: IconButton(
+                          icon: const Icon(Icons.close, color: Colors.white),
+                          style: IconButton.styleFrom(
+                            backgroundColor: Colors.black54,
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              _selectedImage = null;
+                            });
+                          },
+                        ),
+                      ),
+                    ],
                   ),
           ),
         ),
@@ -253,7 +319,7 @@ class _CreateVectorViewState extends State<CreateVectorView> {
           height: 176,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
-            padding: EdgeInsets.only(right: DDimens.md, left: DDimens.md),
+            padding: EdgeInsets.symmetric(horizontal: DDimens.md),
             itemCount: _styles.length,
             itemBuilder: (context, index) {
               final style = _styles[index];
@@ -293,7 +359,7 @@ class _CreateVectorViewState extends State<CreateVectorView> {
         Container(
           margin: EdgeInsets.symmetric(horizontal: DDimens.md),
           decoration: DDecorations.glassmorphic(
-            borderRadius: BorderRadius.circular(DDimens.radiusLg),
+            borderRadius: BorderRadius.circular(DDimens.radiusXl),
           ),
           child: TextField(
             controller: _descriptionController,
@@ -306,16 +372,16 @@ class _CreateVectorViewState extends State<CreateVectorView> {
                 color: DColors.textMuted,
               ),
               border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(DDimens.radiusLg),
+                borderRadius: BorderRadius.circular(DDimens.radiusXl),
                 borderSide: BorderSide(color: DColors.glassBorder),
               ),
               enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(DDimens.radiusLg),
+                borderRadius: BorderRadius.circular(DDimens.radiusXl),
                 borderSide: BorderSide(color: DColors.glassBorder),
               ),
               focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(DDimens.radiusLg),
-                borderSide: BorderSide(color: DColors.primary, width: 2),
+                borderRadius: BorderRadius.circular(DDimens.radiusXl),
+                borderSide: const BorderSide(color: DColors.primary, width: 2),
               ),
               contentPadding: EdgeInsets.all(DDimens.md),
               filled: false,
@@ -325,8 +391,50 @@ class _CreateVectorViewState extends State<CreateVectorView> {
       ],
     );
   }
+
+  Widget _buildGenerateButton() {
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(50),
+        boxShadow: [
+          BoxShadow(
+            color: DColors.primary.withOpacity(0.45),
+            blurRadius: 24,
+            spreadRadius: 4,
+          ),
+          BoxShadow(
+            color: DColors.primary.withOpacity(0.35),
+            blurRadius: 14,
+            spreadRadius: 2,
+          ),
+        ],
+      ),
+      child: ElevatedButton.icon(
+        onPressed: _generateVector,
+        icon: const Icon(Icons.add, size: 24, color: Colors.black),
+        label: const Text(
+          'Generate Vector',
+          style: TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+            color: Colors.black,
+          ),
+        ),
+        style: ElevatedButton.styleFrom(
+          backgroundColor: DColors.primary,
+          padding: EdgeInsets.symmetric(vertical: DDimens.md),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(50),
+            side: BorderSide(color: DColors.primary),
+          ),
+          minimumSize: const Size(double.infinity, 56),
+        ),
+      ),
+    );
+  }
 }
 
+// Style Card Widget
 class _StyleCard extends StatelessWidget {
   final String name;
   final String imageUrl;
@@ -345,7 +453,7 @@ class _StyleCard extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: AnimatedContainer(
-        duration: DConstants.fastAnimation,
+        duration: const Duration(milliseconds: 200),
         width: 128,
         decoration: BoxDecoration(
           color: DColors.glassBgDark,
@@ -365,7 +473,6 @@ class _StyleCard extends StatelessWidget {
                     color: DColors.primary.withOpacity(0.2),
                     blurRadius: 8,
                     spreadRadius: 1,
-                    offset: const Offset(0, 0),
                   ),
                 ]
               : [],
@@ -382,6 +489,12 @@ class _StyleCard extends StatelessWidget {
                   imageUrl,
                   fit: BoxFit.cover,
                   width: double.infinity,
+                  errorBuilder: (context, error, stackTrace) {
+                    return Container(
+                      color: Colors.grey.shade800,
+                      child: const Icon(Icons.error, color: Colors.white54),
+                    );
+                  },
                 ),
               ),
             ),
@@ -403,7 +516,8 @@ class _StyleCard extends StatelessWidget {
   }
 }
 
-class ParticleBackgroundPainter extends CustomPainter {
+// Particle Background Painter
+class _ParticleBackgroundPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint()..style = PaintingStyle.fill;

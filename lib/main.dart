@@ -1,11 +1,6 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:monovect/core/services/network_service/network_service.dart';
-import 'package:monovect/features/splash/presentation/splash_view.dart';
-
-import 'features/home/presentation/home_view.dart';
+import 'package:monovect/features/home/presentation/home_view.dart';
+import 'package:monovect/features/paywall/presentation/paywall_view.dart';
 
 void main() {
   runApp(const MyApp());

@@ -6,6 +6,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 **Vectorify** is a Flutter mobile application for creating vector art/graphics. The app features a dark theme with glassmorphism design, credit-based system, and network operations with isolate-based JSON parsing for performance.
 
+A complete plan of this project is written to @plan.md
+
 ## Development Commands
 
 ### Setup
